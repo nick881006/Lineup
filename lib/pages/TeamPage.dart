@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lineup/widgets/Background.dart';
 
 class TeamPage extends StatefulWidget {
   final String title;
@@ -12,8 +13,15 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(widget.title),
+    return new Stack(
+      children: <Widget>[
+        BackgroundWidget(
+          imagePath: 'images/background.png',
+        ),
+        Center(
+          child: Text(widget.title),
+        )
+      ]
     );
   }
 }

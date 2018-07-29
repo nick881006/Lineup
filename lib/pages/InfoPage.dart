@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lineup/widgets/Background.dart';
 
 class InfoPage extends StatefulWidget {
   @override
@@ -8,8 +10,28 @@ class InfoPage extends StatefulWidget {
 class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Info'),
+    return Scaffold(
+      appBar: new CupertinoNavigationBar(
+        leading: CupertinoButton(
+            child: Text(
+              'Close',
+              style: TextStyle(color: Colors.black),
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        middle: Text('Info'),
+      ),
+      body: Stack(
+        children: <Widget>[
+          BackgroundWidget(
+            imagePath: 'images/background2.png',
+          ),
+          Center(
+            child: Text('Info'),
+          ),
+        ],
+      )
     );
   }
 }

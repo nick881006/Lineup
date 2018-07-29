@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lineup/pages/InfoPage.dart';
+import 'package:lineup/pages/PlayersPage.dart';
 import 'package:lineup/pages/TeamPage.dart';
 
 void main() => runApp(new LineupApp());
@@ -34,8 +36,12 @@ class _LineupAppState extends State<LineupApp> {
 
     _body = new IndexedStack(
       children: <Widget>[
-        new TeamPage(title: 'Main',),
-        new TeamPage(title: 'Sub',),
+        new TeamPage(
+          title: 'Main',
+        ),
+        new TeamPage(
+          title: 'Sub',
+        ),
       ],
       index: _tabIndex,
     );
@@ -51,7 +57,10 @@ class _LineupAppState extends State<LineupApp> {
 
   Text getTabTitle(int curIndex) {
     if (curIndex == _tabIndex) {
-      return Text(tabNames[curIndex], style: tabTextStyleSelect,);
+      return Text(
+        tabNames[curIndex],
+        style: tabTextStyleSelect,
+      );
     } else {
       return Text(tabNames[curIndex]);
     }
@@ -62,47 +71,64 @@ class _LineupAppState extends State<LineupApp> {
     initData();
 
     return new MaterialApp(
-      theme: new ThemeData(
-        primaryColor: Colors.grey
-      ),
-      home: new Scaffold(
-        appBar: new CupertinoNavigationBar(
-          leading: CupertinoButton(
-              child: Text('Players', style: TextStyle(color: Colors.black),),
-              onPressed: () {}),
-          trailing: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              CupertinoButton(
-                  child: Text('Share', style: TextStyle(color: Colors.black),),
-                  onPressed: () {}),
-              CupertinoButton(
-                  child: Text('Info', style: TextStyle(color: Colors.black),),
-                  onPressed: () {}),
-            ],
-          )
-        ),
-        body: _body,
-        bottomNavigationBar: new CupertinoTabBar(
-          items: <BottomNavigationBarItem> [
-            new BottomNavigationBarItem(
-                icon: getTabIcon(0),
-                title: getTabTitle(0),
+      theme: new ThemeData(primaryColor: Colors.grey),
+      home: Builder(
+        builder: (context) => new Scaffold(
+              appBar: new CupertinoNavigationBar(
+                  leading: CupertinoButton(
+                      child: Text(
+                        'Players',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PlayerPage()));
+                      }),
+                  trailing: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      CupertinoButton(
+                          child: Text(
+                            'Share',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          onPressed: () {}),
+                      CupertinoButton(
+                          child: Text(
+                            'Info',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => InfoPage()));
+                          }),
+                    ],
+                  )),
+              body: _body,
+              bottomNavigationBar: new CupertinoTabBar(
+                items: <BottomNavigationBarItem>[
+                  new BottomNavigationBarItem(
+                    icon: getTabIcon(0),
+                    title: getTabTitle(0),
+                  ),
+                  new BottomNavigationBarItem(
+                    icon: getTabIcon(1),
+                    title: getTabTitle(1),
+                  )
+                ],
+                currentIndex: _tabIndex,
+                onTap: (index) {
+                  setState(() {
+                    _tabIndex = index;
+                  });
+                },
+              ),
             ),
-            new BottomNavigationBarItem(
-              icon: getTabIcon(1),
-              title: getTabTitle(1),
-            )
-          ],
-          currentIndex: _tabIndex,
-          onTap: (index) {
-            setState(() {
-              _tabIndex = index;
-            });
-          },
-        ),
       ),
     );
   }
 }
-
