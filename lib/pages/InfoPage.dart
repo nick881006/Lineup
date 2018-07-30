@@ -13,10 +13,7 @@ class _InfoPageState extends State<InfoPage> {
     return Scaffold(
       appBar: new CupertinoNavigationBar(
         leading: CupertinoButton(
-            child: Text(
-              'Close',
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text('Close'),
             onPressed: () {
               Navigator.pop(context);
             }),

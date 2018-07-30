@@ -13,19 +13,13 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
     return Scaffold(
       appBar: new CupertinoNavigationBar(
         leading: CupertinoButton(
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text('Cancel'),
             onPressed: () {
               Navigator.pop(context);
             }),
         middle: Text('Player Detail'),
         trailing: CupertinoButton(
-            child: Text(
-              'Save',
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text('Save'),
             onPressed: () {}),
       ),
       body: Stack(

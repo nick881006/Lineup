@@ -14,19 +14,13 @@ class _PlayerPageState extends State<PlayerPage> {
     return Scaffold(
       appBar: new CupertinoNavigationBar(
         leading: CupertinoButton(
-            child: Text(
-              'Close',
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text('Close'),
             onPressed: () {
               Navigator.pop(context);
             }),
         middle: Text('Players'),
         trailing: CupertinoButton(
-            child: Text(
-              'Add',
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text('Add'),
             onPressed: () {
               Navigator.push(
                   context,

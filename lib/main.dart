@@ -12,14 +12,18 @@ class LineupApp extends StatefulWidget {
 }
 
 class _LineupAppState extends State<LineupApp> {
+  // index of page
   int _tabIndex = 0;
 
+  // images of tabs
   var tabImages;
+  // name of tabs
   var tabNames = ['Main', 'Sub'];
   var _body;
 
   final tabTextStyleSelect = new TextStyle(color: Colors.black);
 
+  // initialize tab images and corresponding pages
   void initData() {
     if (tabImages == null) {
       tabImages = [
@@ -47,6 +51,7 @@ class _LineupAppState extends State<LineupApp> {
     );
   }
 
+  // get tab image based on index
   Image getTabIcon(int curIndex) {
     if (curIndex == _tabIndex) {
       return tabImages[curIndex][1];
@@ -55,6 +60,7 @@ class _LineupAppState extends State<LineupApp> {
     }
   }
 
+  // get tab name based on index
   Text getTabTitle(int curIndex) {
     if (curIndex == _tabIndex) {
       return Text(
@@ -74,12 +80,10 @@ class _LineupAppState extends State<LineupApp> {
       theme: new ThemeData(primaryColor: Colors.grey),
       home: Builder(
         builder: (context) => new Scaffold(
+              // app bar
               appBar: new CupertinoNavigationBar(
                   leading: CupertinoButton(
-                      child: Text(
-                        'Players',
-                        style: TextStyle(color: Colors.black),
-                      ),
+                      child: Text('Players'),
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -90,16 +94,10 @@ class _LineupAppState extends State<LineupApp> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       CupertinoButton(
-                          child: Text(
-                            'Share',
-                            style: TextStyle(color: Colors.black),
-                          ),
+                          child: Text('Share'),
                           onPressed: () {}),
                       CupertinoButton(
-                          child: Text(
-                            'Info',
-                            style: TextStyle(color: Colors.black),
-                          ),
+                          child: Text('Info'),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -108,7 +106,9 @@ class _LineupAppState extends State<LineupApp> {
                           }),
                     ],
                   )),
+              // body
               body: _body,
+              // bottom tab bar
               bottomNavigationBar: new CupertinoTabBar(
                 items: <BottomNavigationBarItem>[
                   new BottomNavigationBarItem(
