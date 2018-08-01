@@ -11,7 +11,7 @@ class BackgroundWidget extends StatelessWidget {
       decoration: new BoxDecoration(
           image: new DecorationImage(
               image: new AssetImage(imagePath),
-              fit: BoxFit.cover
+              fit: BoxFit.fill
           )
       ),
     );
