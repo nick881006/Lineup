@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lineup/pages/PlayerDetailPage.dart';
+import 'package:lineup/utils/Constants.dart';
 
 class PlayerWidget extends StatefulWidget {
   final Offset offset;
@@ -17,24 +17,6 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   String name;
 
   Offset position = Offset(0.0, 0.0);
-//  bool isTapped = false;
-
-//  void onTapDown(TapDownDetails tap) {
-//    setState(() {
-//      isTapped = true;
-//    });
-//  }
-//
-//  void onTapUp(TapUpDetails tap) {
-//    setState(() {
-//      isTapped = false;
-//    });
-//
-//    Navigator.push(
-//        context,
-//        MaterialPageRoute(builder: (context) => PlayerDetailPage())
-//    );
-//  }
 
   @override
   void initState() {
@@ -53,10 +35,10 @@ class _PlayerWidgetState extends State<PlayerWidget> {
           ImageIcon(
             AssetImage('images/ic_player.png'),
             color: Colors.white,
-            size: 40.0,
+            size: Constants.widgetSize,
           ),
           Text(
-            '-',
+            'Brozovic',
             style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.white
@@ -96,12 +78,12 @@ class _PlayerWidgetState extends State<PlayerWidget> {
                 dy = 0.0;
               }
 
-              if (dx > screenWidth - 40) {
-                dx = screenWidth - 40;
+              if (dx > screenWidth - Constants.widgetSize) {
+                dx = screenWidth - Constants.widgetSize;
               }
 
-              if (o.dy +  40 + widget.tabBarHeight > screenHeight) {
-                dy = screenHeight - 40 - widget.appBarHeight - widget.statusBarHeight - widget.tabBarHeight - 20;
+              if (o.dy + Constants.widgetSize + widget.tabBarHeight > screenHeight) {
+                dy = screenHeight - Constants.widgetSize - widget.appBarHeight - widget.statusBarHeight - widget.tabBarHeight - Constants.widgetSize/2;
               }
 
               position = new Offset(dx, dy);
