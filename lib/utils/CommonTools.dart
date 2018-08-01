@@ -9,4 +9,13 @@ class Tools {
       },
     );
   }
+
+  static CupertinoButton cupertinoCloseButtonBuilder(BuildContext context, String title) {
+    return CupertinoButton(
+      child: Text(title),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  }
 }

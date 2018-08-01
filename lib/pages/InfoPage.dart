@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lineup/utils/CommonTools.dart';
 import 'package:lineup/widgets/Background.dart';
 
 class InfoPage extends StatefulWidget {
@@ -12,11 +13,7 @@ class _InfoPageState extends State<InfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new CupertinoNavigationBar(
-        leading: CupertinoButton(
-            child: Text('Close'),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+        leading: Tools.cupertinoCloseButtonBuilder(context, 'Close'),
         middle: Text('Info'),
       ),
       body: Stack(

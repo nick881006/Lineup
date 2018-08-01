@@ -11,7 +11,7 @@ class TeamPage extends StatefulWidget {
 class _TeamPageState extends State<TeamPage> {
   final tabTextStyleSelect = new TextStyle(color: Colors.black);
 
-  //  // index of page
+  // index of page
   int _tabIndex = 0;
 
   // images of tabs

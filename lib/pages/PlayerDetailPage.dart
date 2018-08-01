@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lineup/utils/CommonTools.dart';
 import 'package:lineup/widgets/Background.dart';
 
 class PlayerDetailPage extends StatefulWidget {
@@ -12,11 +13,7 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new CupertinoNavigationBar(
-        leading: CupertinoButton(
-            child: Text('Cancel'),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+        leading: Tools.cupertinoCloseButtonBuilder(context, 'Cancel'),
         middle: Text('Player Detail'),
         trailing: CupertinoButton(
             child: Text('Save'),
