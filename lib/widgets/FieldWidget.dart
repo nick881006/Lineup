@@ -22,7 +22,7 @@ class _FieldWidgetState extends State<FieldWidget> {
     double fieldHeight = MediaQuery.of(context).size.height - widget.appBarHeight - widget.tabBarHeight - widget.statusBarHeight;
     double fieldWidth = MediaQuery.of(context).size.width;
 
-    double marginTop = (fieldHeight * Constants.fieldHeadRatio) / 2 - Constants.widgetSize/2;
+    double marginTop = (fieldHeight * Constants.fieldTBRatio) / 2 - Constants.widgetSize/2;
 
     return new Stack(
         children: <Widget>[

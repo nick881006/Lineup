@@ -49,8 +49,8 @@ class _ManagerWidgetState extends State<ManagerWidget> {
           Text(
             'manager name',
             style: TextStyle(
-                fontSize: 18.0,
-                color: isClicked ? Colors.white70 : Colors.white,
+              fontSize: 18.0,
+              color: isClicked ? Colors.white70 : Colors.white,
             ),
           ),
         ],

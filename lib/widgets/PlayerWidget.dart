@@ -75,6 +75,11 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    double fieldHeight = screenHeight - widget.statusBarHeight - widget.appBarHeight - widget.tabBarHeight;
+    double fieldWidth = screenWidth;
+
+    double fieldMarginTB = fieldHeight * Constants.fieldTBRatio;
+    double fieldMarginLR = fieldWidth * Constants.fieldLRRatio;
 
     return Positioned(
       left: position.dx,
@@ -92,20 +97,20 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               double dy = o.dy - widget.appBarHeight - widget.statusBarHeight;
 
               // boundary check
-              if (dx < 0) {
-                dx = 0.0;
+              if (dx < fieldMarginLR) {
+                dx = fieldMarginLR;
               }
 
-              if (dy < 0) {
-                dy = 0.0;
+              if (dy < fieldMarginTB) {
+                dy = fieldMarginTB;
               }
 
-              if (dx > screenWidth - Constants.widgetSize) {
-                dx = screenWidth - Constants.widgetSize;
+              if (dx + fieldMarginLR + Constants.widgetSize > screenWidth) {
+                dx = screenWidth - fieldMarginLR*2 - Constants.widgetSize;
               }
 
-              if (o.dy + Constants.widgetSize + widget.tabBarHeight > screenHeight) {
-                dy = screenHeight - Constants.widgetSize - widget.appBarHeight - widget.statusBarHeight - widget.tabBarHeight - Constants.widgetSize/2;
+              if (dy + Constants.widgetSize + widget.tabBarHeight + widget.appBarHeight + widget.statusBarHeight + fieldMarginTB > screenHeight) {
+                dy = screenHeight - fieldMarginTB - Constants.widgetSize - widget.appBarHeight - widget.statusBarHeight - widget.tabBarHeight;
               }
 
               position = new Offset(dx, dy);
