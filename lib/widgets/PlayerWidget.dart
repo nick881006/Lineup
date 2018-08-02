@@ -18,6 +18,8 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
   Offset position = Offset(0.0, 0.0);
 
+  bool isClicked = false;
+
   @override
   void initState() {
     super.initState();
@@ -25,30 +27,50 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     position = widget.offset;
   }
 
+  void onTapDown(TapDownDetails t) {
+    setState(() {
+      isClicked = true;
+    });
+  }
+
+  void onTapUp(TapUpDetails t) {
+    setState(() {
+      isClicked = false;
+
+      Navigator.pushNamed(context, '/PlayerDetailPage');
+    });
+  }
+
+  void onTapCancel() {
+    setState(() {
+      isClicked = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget player = GestureDetector(
+      onTapDown: onTapDown,
+      onTapUp: onTapUp,
+      onTapCancel: onTapCancel,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ImageIcon(
             AssetImage('images/ic_player.png'),
-            color: Colors.white,
+            color: isClicked ? Colors.white70 : Colors.white,
             size: Constants.widgetSize,
           ),
           Text(
             'Brozovic',
             style: TextStyle(
                 fontSize: 16.0,
-                color: Colors.white
+                color: isClicked ? Colors.white70 : Colors.white,
             ),
           ),
         ],
       ),
-      onTap: () {
-        Navigator.pushNamed(context, '/PlayerDetailPage');
-      },
     );
 
     double screenHeight = MediaQuery.of(context).size.height;
