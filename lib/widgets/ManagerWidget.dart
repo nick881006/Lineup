@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lineup/utils/Constants.dart';
+import 'package:Lineup11/utils/Constants.dart';
 
 class ManagerWidget extends StatefulWidget {
   @override

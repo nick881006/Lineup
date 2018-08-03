@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lineup/pages/InfoPage.dart';
-import 'package:lineup/pages/PlayerDetailPage.dart';
-import 'package:lineup/pages/PlayersPage.dart';
-import 'package:lineup/pages/TeamPage.dart';
+import 'package:Lineup11/pages/InfoPage.dart';
+import 'package:Lineup11/pages/PlayerDetailPage.dart';
+import 'package:Lineup11/pages/PlayersPage.dart';
+import 'package:Lineup11/pages/TeamPage.dart';
 
 void main() {
   runApp(new MaterialApp(

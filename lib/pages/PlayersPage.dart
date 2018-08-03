@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lineup/pages/PlayerDetailPage.dart';
-import 'package:lineup/utils/CommonTools.dart';
-import 'package:lineup/widgets/Background.dart';
+import 'package:Lineup11/utils/CommonTools.dart';
+import 'package:Lineup11/widgets/Background.dart';
 
 class PlayerPage extends StatefulWidget {
   @override

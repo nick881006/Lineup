@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lineup/utils/Constants.dart';
-import 'package:lineup/widgets/Background.dart';
-import 'package:lineup/widgets/ManagerWidget.dart';
-import 'package:lineup/widgets/PlayerWidget.dart';
+import 'package:Lineup11/utils/Constants.dart';
+import 'package:Lineup11/widgets/Background.dart';
+import 'package:Lineup11/widgets/ManagerWidget.dart';
+import 'package:Lineup11/widgets/PlayerWidget.dart';
 
 class FieldWidget extends StatefulWidget {
   final String title;

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lineup/utils/CommonTools.dart';
-import 'package:lineup/widgets/FieldWidget.dart';
+import 'package:Lineup11/utils/CommonTools.dart';
+import 'package:Lineup11/widgets/FieldWidget.dart';
 
 class TeamPage extends StatefulWidget {
   @override
