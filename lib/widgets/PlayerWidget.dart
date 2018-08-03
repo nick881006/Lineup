@@ -102,24 +102,27 @@ class _PlayerWidgetState extends State<PlayerWidget> {
       onTapDown: onTapDown,
       onTapUp: onTapUp,
       onTapCancel: onTapCancel,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ImageIcon(
-            AssetImage('images/ic_player.png'),
-            color: color,
-            size: Constants.widgetSize,
-          ),
-          Text(
-            'Brozovic',
-            style: TextStyle(
-              fontSize: 16.0,
+      child: Material(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ImageIcon(
+              AssetImage('images/ic_player.png'),
               color: color,
+              size: Constants.widgetSize,
             ),
-          ),
-        ],
-      ),
+            Text(
+              'Brozovic',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: color,
+              ),
+            ),
+          ],
+        ),
+        color: Colors.transparent,
+      )
     );
   }
 }
