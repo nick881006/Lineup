@@ -49,30 +49,6 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Widget player = GestureDetector(
-      onTapDown: onTapDown,
-      onTapUp: onTapUp,
-      onTapCancel: onTapCancel,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ImageIcon(
-            AssetImage('images/ic_player.png'),
-            color: isClicked ? Colors.white70 : Colors.white,
-            size: Constants.widgetSize,
-          ),
-          Text(
-            'Brozovic',
-            style: TextStyle(
-                fontSize: 16.0,
-                color: isClicked ? Colors.white70 : Colors.white,
-            ),
-          ),
-        ],
-      ),
-    );
-
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     double fieldHeight = screenHeight - widget.statusBarHeight - widget.appBarHeight - widget.tabBarHeight;
@@ -85,8 +61,9 @@ class _PlayerWidgetState extends State<PlayerWidget> {
       left: position.dx,
       top: position.dy,
       child: Draggable(
-        child: player,
-        feedback: player,
+        child: buildPlayer(isClicked ? Colors.white70 : Colors.white),
+        feedback: buildPlayer(isClicked ? Colors.white70 : Colors.white),
+        childWhenDragging: buildPlayer(Colors.transparent),
         onDraggableCanceled: (v, o) {
             if(!mounted) {
               return;
@@ -116,6 +93,32 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               position = new Offset(dx, dy);
             });
         },
+      ),
+    );
+  }
+
+  Widget buildPlayer(Color color) {
+    return GestureDetector(
+      onTapDown: onTapDown,
+      onTapUp: onTapUp,
+      onTapCancel: onTapCancel,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ImageIcon(
+            AssetImage('images/ic_player.png'),
+            color: color,
+            size: Constants.widgetSize,
+          ),
+          Text(
+            'Brozovic',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: color,
+            ),
+          ),
+        ],
       ),
     );
   }
