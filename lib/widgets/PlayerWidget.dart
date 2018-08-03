@@ -113,7 +113,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               size: Constants.widgetSize,
             ),
             Text(
-              'Brozovic',
+              '-',
               style: TextStyle(
                 fontSize: 16.0,
                 color: color,
