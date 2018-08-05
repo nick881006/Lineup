@@ -32,6 +32,7 @@ flutter:
   assets:
     - images/ic_manager.png
     - images/ic_player.png
+    - images/ic_player_big.png
     - images/ic_team_normal.png
     - images/ic_team_selected.png
     - images/background.png
