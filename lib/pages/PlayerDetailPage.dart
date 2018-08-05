@@ -9,6 +9,62 @@ class PlayerDetailPage extends StatefulWidget {
 }
 
 class _PlayerDetailPageState extends State<PlayerDetailPage> {
+  bool isResetClicked = false;
+  bool isChangeClicked = false;
+
+  final textController = TextEditingController();
+
+  void onResetTapDown(TapDownDetails t) {
+    setState(() {
+      isResetClicked = true;
+    });
+  }
+
+  void onResetTapUp(TapUpDetails t) {
+    setState(() {
+      isResetClicked = false;
+
+      //TODO
+      //reset
+    });
+  }
+
+  void onResetTapCancel() {
+    setState(() {
+      isResetClicked = false;
+    });
+  }
+
+  void onChangeTapDown(TapDownDetails t) {
+    setState(() {
+      isChangeClicked = true;
+    });
+  }
+
+  void onChangeTapUp(TapUpDetails t) {
+    setState(() {
+      isChangeClicked = false;
+
+      print(textController.text);
+
+      //TODO
+      //popup menu
+    });
+  }
+
+  void onChangeTapCancel() {
+    setState(() {
+      isChangeClicked = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    textController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +80,84 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
           BackgroundWidget(
             imagePath: 'images/background2.png',
           ),
-          Center(
-            child: Text('Player Detail'),
-          ),
+          Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    GestureDetector(
+                      child: Text(
+                        'Reset\nImage',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: isResetClicked ? Colors.white70 : Colors.white,
+                        ),
+                      ),
+                      onTapDown: onResetTapDown,
+                      onTapUp: onResetTapUp,
+                      onTapCancel: onResetTapCancel,
+                    ),
+                    Image.asset(
+                      'images/ic_player_big.png',
+                    ),
+                    GestureDetector(
+                      child: Text(
+                        'Change\n Image',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: isChangeClicked ? Colors.white70 : Colors.white,
+                        ),
+                      ),
+                      onTapDown: onChangeTapDown,
+                      onTapUp: onChangeTapUp,
+                      onTapCancel: onChangeTapCancel,
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Text(
+                      'Name',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20.0),
+                      padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                      child: TextField(
+                        controller: textController,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.white,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(0.0),
+                          border: InputBorder.none,
+                          hintText: 'Name',
+                        )
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.all(new Radius.circular(5.0))
+                      ),
+                    )
+                  )
+                ],
+              )
+            ],
+          )
         ],
       )
     );

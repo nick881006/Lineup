@@ -25,6 +25,8 @@ class _PlayerPageState extends State<PlayerPage> {
           Center(
             child: Text('Player'),
           ),
+          //TODO
+          //player list
         ],
       )
     );
