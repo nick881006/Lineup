@@ -7,6 +7,9 @@ import 'package:Lineup11/pages/TeamPage.dart';
 
 void main() {
   runApp(new MaterialApp(
+      theme: ThemeData(
+        textSelectionColor: Colors.white,
+      ),
       routes: <String, WidgetBuilder>{
         '/TeamPage': (BuildContext context) => new TeamPage(),
         '/PlayerPage': (BuildContext context) => new PlayerPage(),
