@@ -1,13 +1,16 @@
+import 'package:Lineup11/model/Person.dart';
+import 'package:Lineup11/utils/Database.dart';
 import 'package:flutter/material.dart';
 import 'package:Lineup11/utils/Constants.dart';
 
 class PlayerWidget extends StatefulWidget {
+  final int id;
   final Offset offset;
   final double appBarHeight;
   final double tabBarHeight;
   final double statusBarHeight;
 
-  PlayerWidget({Key key, this.offset, this.appBarHeight, this.tabBarHeight, this.statusBarHeight}) : super(key: key);
+  PlayerWidget({Key key, this.offset, this.appBarHeight, this.tabBarHeight, this.statusBarHeight, this.id}) : super(key: key);
 
   @override
   _PlayerWidgetState createState() => _PlayerWidgetState();
@@ -91,6 +94,13 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               }
 
               position = new Offset(dx, dy);
+
+              // update database and array record
+              Person movedPlayer = widget.id < 11? PersonDatabase.get().main[widget.id] : PersonDatabase.get().sub[widget.id - 11];
+              movedPlayer.x = dx;
+              movedPlayer.y = dy;
+
+              PersonDatabase.get().updatePersonInDatabase(movedPlayer);
             });
         },
       ),
