@@ -4,6 +4,8 @@ import 'package:Lineup11/utils/CommonTools.dart';
 import 'package:Lineup11/widgets/FieldWidget.dart';
 
 class TeamPage extends StatefulWidget {
+  const TeamPage({Key key}) : super(key: key);
+
   @override
   _TeamPageState createState() => _TeamPageState();
 }
