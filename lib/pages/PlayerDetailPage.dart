@@ -12,7 +12,8 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
   bool isResetClicked = false;
   bool isChangeClicked = false;
 
-  final textController = TextEditingController();
+  final nameTextController = TextEditingController();
+  final numberTextController = TextEditingController();
 
   void onResetTapDown(TapDownDetails t) {
     setState(() {
@@ -45,7 +46,8 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
     setState(() {
       isChangeClicked = false;
 
-      print(textController.text);
+      print(numberTextController.text);
+      print(nameTextController.text);
 
       //TODO
       //popup menu
@@ -61,7 +63,8 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
-    textController.dispose();
+    numberTextController.dispose();
+    nameTextController.dispose();
     super.dispose();
   }
 
@@ -83,7 +86,7 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
           Column(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                margin: EdgeInsets.only(top: 30.0, bottom: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -117,42 +120,90 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
                   ],
                 ),
               ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Text(
-                      'Name',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
+              Container(
+                margin: EdgeInsets.only(bottom: 10.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                        child: Text(
+                          'Number',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  Flexible(
+                    Flexible(
+                        flex: 2,
+                        child: Container(
+                          margin: EdgeInsets.only(right: 20.0),
+                          padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                          child: TextField(
+                              controller: numberTextController,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(0.0),
+                                border: InputBorder.none,
+                                hintText: 'Number',
+                              )
+                          ),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                              ),
+                              borderRadius: BorderRadius.all(new Radius.circular(5.0))
+                          ),
+                        )
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(right: 20.0),
-                      padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                      child: TextField(
-                        controller: textController,
-                        textAlign: TextAlign.center,
+                      margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                      child: Text(
+                        'Name',
                         style: TextStyle(
                           fontSize: 16.0,
                           color: Colors.white,
                         ),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(0.0),
-                          border: InputBorder.none,
-                          hintText: 'Name',
-                        )
                       ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.white,
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 20.0),
+                        padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                        child: TextField(
+                            controller: nameTextController,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.all(0.0),
+                              border: InputBorder.none,
+                              hintText: 'Name',
+                            )
                         ),
-                        borderRadius: BorderRadius.all(new Radius.circular(5.0))
-                      ),
-                    )
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                            ),
+                            borderRadius: BorderRadius.all(new Radius.circular(5.0))
+                        ),
+                      )
                   )
                 ],
               )
