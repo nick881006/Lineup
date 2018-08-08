@@ -19,8 +19,8 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
   bool isResetClicked = false;
   bool isChangeClicked = false;
 
-  final nameTextController = TextEditingController();
-  final numberTextController = TextEditingController();
+  var nameTextController = TextEditingController();
+  var numberTextController = TextEditingController();
 
   void onResetTapDown(TapDownDetails t) {
     setState(() {
@@ -64,6 +64,24 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
     });
   }
 
+
+  @override
+  void initState() {
+    super.initState();
+
+    nameTextController = TextEditingController();
+    numberTextController = TextEditingController();
+
+    if (widget.person.number != -1) {
+      numberTextController.text = widget.person.number.toString();
+    }
+
+    if (widget.person.name != '-') {
+      nameTextController.text = widget.person.name;
+    }
+
+  }
+
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
@@ -104,7 +122,7 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
                     contentPadding: EdgeInsets.all(0.0),
                     border: InputBorder.none,
                     hintText: text,
-                  )
+                  ),
               ),
               decoration: BoxDecoration(
                   border: Border.all(
@@ -120,14 +138,6 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
 
   List<Widget> constructInputField() {
     List<Widget> widgets = new List();
-
-    if (widget.person.number != -1) {
-      numberTextController.text = widget.person.number.toString();
-    }
-
-    if (widget.person.name != '-') {
-      nameTextController.text = widget.person.name;
-    }
 
     if (widget.person.role != Constants.manager) {
       widgets.add(Container(
