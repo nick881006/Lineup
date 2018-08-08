@@ -1,9 +1,16 @@
+import 'package:Lineup11/model/Person.dart';
+import 'package:Lineup11/utils/Constants.dart';
+import 'package:Lineup11/utils/Database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:Lineup11/utils/CommonTools.dart';
 import 'package:Lineup11/widgets/Background.dart';
 
 class PlayerDetailPage extends StatefulWidget {
+  final Person person;
+
+  const PlayerDetailPage({Key key, this.person}) : super(key: key);
+
   @override
   _PlayerDetailPageState createState() => _PlayerDetailPageState();
 }
@@ -46,9 +53,6 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
     setState(() {
       isChangeClicked = false;
 
-      print(numberTextController.text);
-      print(nameTextController.text);
-
       //TODO
       //popup menu
     });
@@ -68,15 +72,122 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
     super.dispose();
   }
 
+  Widget constructRow(String text, TextEditingController controller, TextInputType textInputType) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 20.0, right: 20.0),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+            flex: 2,
+            child: Container(
+              margin: EdgeInsets.only(right: 20.0),
+              padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+              child: TextFormField(
+                  controller: controller,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.white,
+                  ),
+                  keyboardType: textInputType,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(0.0),
+                    border: InputBorder.none,
+                    hintText: text,
+                  )
+              ),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.all(new Radius.circular(5.0))
+              ),
+            )
+        ),
+      ],
+    );
+  }
+
+  List<Widget> constructInputField() {
+    List<Widget> widgets = new List();
+
+    if (widget.person.number != -1) {
+      numberTextController.text = widget.person.number.toString();
+    }
+
+    if (widget.person.name != '-') {
+      nameTextController.text = widget.person.name;
+    }
+
+    if (widget.person.role != Constants.manager) {
+      widgets.add(Container(
+        margin: EdgeInsets.only(bottom: 10.0),
+        child: constructRow('Number', numberTextController, TextInputType.numberWithOptions()),
+      ));
+    }
+
+    widgets.add(constructRow('Name', nameTextController, TextInputType.text));
+
+    return widgets;
+  }
+
+  void onPressSave() {
+    if(numberTextController.text == '') {
+      widget.person.number = -1;
+    } else {
+      widget.person.number = int.parse(numberTextController.text);
+    }
+
+    if(nameTextController.text == '') {
+      widget.person.name = '-';
+    } else {
+      widget.person.name = nameTextController.text;
+    }
+
+    // TODO process image
+
+    PersonDatabase.get().updatePersonInDatabase(widget.person);
+
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text('Saved!'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Ok'),
+                isDefaultAction: true,
+              ),
+            ],
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new CupertinoNavigationBar(
         leading: Tools.cupertinoCloseButtonBuilder(context, 'Cancel'),
-        middle: Text('Player Detail'),
+        middle: widget.person.role == Constants.manager? Text('Manager Detail') : Text('Player Detail'),
         trailing: CupertinoButton(
             child: Text('Save'),
-            onPressed: () {}),
+            onPressed: onPressSave
+        ),
       ),
       body: Stack(
         children: <Widget>[
@@ -120,92 +231,8 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                        child: Text(
-                          'Number',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                        flex: 2,
-                        child: Container(
-                          margin: EdgeInsets.only(right: 20.0),
-                          padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                          child: TextField(
-                              controller: numberTextController,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.white,
-                              ),
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.all(0.0),
-                                border: InputBorder.none,
-                                hintText: 'Number',
-                              )
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white,
-                              ),
-                              borderRadius: BorderRadius.all(new Radius.circular(5.0))
-                          ),
-                        )
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                      child: Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                      child: Container(
-                        margin: EdgeInsets.only(right: 20.0),
-                        padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                        child: TextField(
-                            controller: nameTextController,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(0.0),
-                              border: InputBorder.none,
-                              hintText: 'Name',
-                            )
-                        ),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white,
-                            ),
-                            borderRadius: BorderRadius.all(new Radius.circular(5.0))
-                        ),
-                      )
-                  )
-                ],
+              Column(
+                children: constructInputField(),
               )
             ],
           )
