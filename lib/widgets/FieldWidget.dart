@@ -19,10 +19,9 @@ class FieldWidget extends StatefulWidget {
 }
 
 class _FieldWidgetState extends State<FieldWidget> {
-  PlayerWidget createPlayer(int id, double x, double y) {
+  PlayerWidget createPlayer(Person player) {
     return PlayerWidget(
-      id: id,
-      offset: Offset(x, y),
+      player: player,
       appBarHeight: widget.appBarHeight,
       tabBarHeight: widget.tabBarHeight,
       statusBarHeight: widget.statusBarHeight,
@@ -42,40 +41,52 @@ class _FieldWidgetState extends State<FieldWidget> {
     if (team[0] == null) {
       // initialize default pos
       // GK
-      players.add(createPlayer(widget.title == 'Main'? 0 : 11, calculateWidth(1/2, Constants.widgetSize / 2, width), tempHeight + Constants.widgetSize / 2));
+      Person gk = Person(id: widget.title == 'Main'? 0 : 11, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(1/2, Constants.widgetSize / 2, width), y: tempHeight + Constants.widgetSize / 2);
+      players.add(createPlayer(gk));
+
       // DF
-      players.add(createPlayer(widget.title == 'Main'? 1 : 12, calculateWidth(0.1, 0.0, width), tempHeight - pitchHeight * 0.27));
-      players.add(createPlayer(widget.title == 'Main'? 2 : 13, calculateWidth(0.9, Constants.widgetSize, width), tempHeight - pitchHeight * 0.27));
-      players.add(createPlayer(widget.title == 'Main'? 3 : 14, calculateWidth(0.3, 0.0, width), tempHeight - pitchHeight * 0.2));
-      players.add(createPlayer(widget.title == 'Main'? 4 : 15, calculateWidth(0.7, Constants.widgetSize, width), tempHeight - pitchHeight * 0.2));
+      Person df1 = Person(id: widget.title == 'Main'? 1 : 12, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.1, 0.0, width), y: tempHeight - pitchHeight * 0.27);
+      Person df2 = Person(id: widget.title == 'Main'? 2 : 13, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.9, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.27);
+      Person df3 = Person(id: widget.title == 'Main'? 3 : 14, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.2);
+      Person df4 = Person(id: widget.title == 'Main'? 4 : 15, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.7, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.2);
+      players.add(createPlayer(df1));
+      players.add(createPlayer(df2));
+      players.add(createPlayer(df3));
+      players.add(createPlayer(df4));
 
       // MF
-      players.add(createPlayer(widget.title == 'Main'? 5 : 16, calculateWidth(0.1, 0.0, width), tempHeight - pitchHeight * 0.5));
-      players.add(createPlayer(widget.title == 'Main'? 6 : 17, calculateWidth(0.9, Constants.widgetSize, width), tempHeight - pitchHeight * 0.5));
-      players.add(createPlayer(widget.title == 'Main'? 7 : 18, calculateWidth(0.3, 0.0, width), tempHeight - pitchHeight * 0.5));
-      players.add(createPlayer(widget.title == 'Main'? 8 : 19, calculateWidth(0.7, Constants.widgetSize, width), tempHeight - pitchHeight * 0.5));
+      Person mf1 = Person(id: widget.title == 'Main'? 5 : 16, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.1, 0.0, width), y: tempHeight - pitchHeight * 0.5);
+      Person mf2 = Person(id: widget.title == 'Main'? 6 : 17, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.9, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.5);
+      Person mf3 = Person(id: widget.title == 'Main'? 7 : 18, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.5);
+      Person mf4 = Person(id: widget.title == 'Main'? 8 : 19, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.7, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.5);
+      players.add(createPlayer(mf1));
+      players.add(createPlayer(mf2));
+      players.add(createPlayer(mf3));
+      players.add(createPlayer(mf4));
 
       // FW
-      players.add(createPlayer(widget.title == 'Main'? 9 : 20, calculateWidth(0.3, 0.0, width), tempHeight - pitchHeight * 0.75));
-      players.add(createPlayer(widget.title == 'Main'? 10 : 21, calculateWidth(0.7, Constants.widgetSize, width), tempHeight - pitchHeight * 0.75));
+      Person fw1 = Person(id: widget.title == 'Main'? 9 : 20, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.75);
+      Person fw2 = Person(id: widget.title == 'Main'? 9 : 20, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.75);
+      players.add(createPlayer(fw1));
+      players.add(createPlayer(fw2));
 
       // initialize in database
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 0 : 11, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(1/2, Constants.widgetSize / 2, width), y: tempHeight + Constants.widgetSize / 2));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 1 : 12, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.1, 0.0, width), y: tempHeight - pitchHeight * 0.27));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 2 : 13, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.9, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.27));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 3 : 14, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.2));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 4 : 15, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.7, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.2));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 5 : 16, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.1, 0.0, width), y: tempHeight - pitchHeight * 0.5));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 6 : 17, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.9, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.5));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 7 : 18, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.5));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 8 : 19, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.7, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.5));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 9 : 20, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.75));
-      PersonDatabase.get().updatePersonInDatabase(Person(id: widget.title == 'Main'? 10 : 21, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.7, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.75));
+      PersonDatabase.get().updatePersonInDatabase(gk);
+      PersonDatabase.get().updatePersonInDatabase(df1);
+      PersonDatabase.get().updatePersonInDatabase(df2);
+      PersonDatabase.get().updatePersonInDatabase(df3);
+      PersonDatabase.get().updatePersonInDatabase(df4);
+      PersonDatabase.get().updatePersonInDatabase(mf1);
+      PersonDatabase.get().updatePersonInDatabase(mf2);
+      PersonDatabase.get().updatePersonInDatabase(mf3);
+      PersonDatabase.get().updatePersonInDatabase(mf4);
+      PersonDatabase.get().updatePersonInDatabase(fw1);
+      PersonDatabase.get().updatePersonInDatabase(fw2);
 
       PersonDatabase.get().updatePersonInDatabase(Person(id: 22, role: Constants.manager, number: -1, name: '-', image: null, x: -1.0, y: -1.0));
     } else {
       team.forEach((person){
-        players.add(createPlayer(person.id, person.x, person.y));
+        players.add(createPlayer(person));
       });
     }
 
@@ -94,6 +105,7 @@ class _FieldWidgetState extends State<FieldWidget> {
     double marginTop = (fieldHeight * Constants.fieldTBRatio) / 2 - Constants.widgetSize/2;
 
     List<PlayerWidget> players = loadPlayers(fieldHeight, fieldWidth);
+    Person manager = PersonDatabase.get().manager;
 
     return new Stack(
         children: <Widget>[
@@ -102,7 +114,7 @@ class _FieldWidgetState extends State<FieldWidget> {
           ),
           Container(
             margin: EdgeInsets.only(top: marginTop),
-            child: ManagerWidget(),
+            child: ManagerWidget(manager: manager),
           ),
           Players(
             players: players,
