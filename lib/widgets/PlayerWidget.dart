@@ -1,24 +1,23 @@
 import 'package:Lineup11/model/Person.dart';
+import 'package:Lineup11/pages/PlayerDetailPage.dart';
 import 'package:Lineup11/utils/Database.dart';
 import 'package:flutter/material.dart';
 import 'package:Lineup11/utils/Constants.dart';
 
+//TODO position bug
 class PlayerWidget extends StatefulWidget {
-  final int id;
-  final Offset offset;
+  final Person player;
   final double appBarHeight;
   final double tabBarHeight;
   final double statusBarHeight;
 
-  PlayerWidget({Key key, this.offset, this.appBarHeight, this.tabBarHeight, this.statusBarHeight, this.id}) : super(key: key);
+  PlayerWidget({Key key, this.player, this.appBarHeight, this.tabBarHeight, this.statusBarHeight}) : super(key: key);
 
   @override
   _PlayerWidgetState createState() => _PlayerWidgetState();
 }
 
 class _PlayerWidgetState extends State<PlayerWidget> {
-  String name;
-
   Offset position = Offset(0.0, 0.0);
 
   bool isClicked = false;
@@ -27,7 +26,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   void initState() {
     super.initState();
 
-    position = widget.offset;
+    position = new Offset(widget.player.x, widget.player.y);
   }
 
   void onTapDown(TapDownDetails t) {
@@ -40,7 +39,13 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     setState(() {
       isClicked = false;
 
-      Navigator.pushNamed(context, '/PlayerDetailPage');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PlayerDetailPage(
+            person: widget.player,
+          )),
+      );
     });
   }
 
@@ -96,11 +101,10 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               position = new Offset(dx, dy);
 
               // update database and array record
-              Person movedPlayer = widget.id < 11? PersonDatabase.get().main[widget.id] : PersonDatabase.get().sub[widget.id - 11];
-              movedPlayer.x = dx;
-              movedPlayer.y = dy;
+              widget.player.x = dx;
+              widget.player.y = dy;
 
-              PersonDatabase.get().updatePersonInDatabase(movedPlayer);
+              PersonDatabase.get().updatePersonInDatabase(widget.player);
             });
         },
       ),
@@ -108,6 +112,8 @@ class _PlayerWidgetState extends State<PlayerWidget> {
   }
 
   Widget buildPlayer(Color color) {
+    String displayName = widget.player.number == -1? widget.player.name: widget.player.number.toString() + '.' + widget.player.name;
+
     return GestureDetector(
       onTapDown: onTapDown,
       onTapUp: onTapUp,
@@ -123,7 +129,7 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               size: Constants.widgetSize,
             ),
             Text(
-              '-',
+              displayName,
               style: TextStyle(
                 fontSize: 16.0,
                 color: color,
