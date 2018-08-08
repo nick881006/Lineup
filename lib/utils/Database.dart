@@ -78,6 +78,14 @@ class PersonDatabase {
     });
   }
 
+  Person getPersonById(int id) {
+    if (id == 22) {
+      return manager;
+    }
+
+    return id < 11? main[id] : sub[id - 11];
+  }
+
   // get all records
   Future<List<Person>> getPersonsFromDatabase() async{
     var db = await _getDb();
