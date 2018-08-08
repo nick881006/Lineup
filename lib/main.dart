@@ -37,6 +37,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool initialized = false;
+
   Future<List<Person>> fetchPersonList() async{
     PersonDatabase.get().init();
 //    PersonDatabase.get().deleteRecords();
@@ -48,22 +50,27 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Person>>(
-      future: fetchPersonList(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-//          print(snapshot.data.length);
-          PersonDatabase.get().initTeams(snapshot.data);
+    if (initialized) {
 
-          return TeamPage();
-        } else if (snapshot.hasError) {
-          print(snapshot.error.toString());
-          return LaunchScreen();
-        } else {
-          return LaunchScreen();
-        }
-      },
-    );
+      return TeamPage();
+    } else {
+      return FutureBuilder<List<Person>>(
+        future: fetchPersonList(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            PersonDatabase.get().initTeams(snapshot.data);
+            initialized = true;
+
+            return TeamPage();
+          } else if (snapshot.hasError) {
+            print(snapshot.error.toString());
+            return LaunchScreen();
+          } else {
+            return LaunchScreen();
+          }
+        },
+      );
+    }
   }
 }
 
