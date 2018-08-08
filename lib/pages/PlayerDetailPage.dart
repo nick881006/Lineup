@@ -177,7 +177,7 @@ class _PlayerDetailPageState extends State<PlayerDetailPage> {
             actions: <Widget>[
               CupertinoDialogAction(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed('/TeamPage');
                 },
                 child: Text('Ok'),
                 isDefaultAction: true,
