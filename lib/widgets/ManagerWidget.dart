@@ -1,15 +1,18 @@
+import 'package:Lineup11/model/Person.dart';
+import 'package:Lineup11/pages/PlayerDetailPage.dart';
 import 'package:flutter/material.dart';
 import 'package:Lineup11/utils/Constants.dart';
 
 class ManagerWidget extends StatefulWidget {
+  final Person manager;
+
+  const ManagerWidget({Key key, this.manager}) : super(key: key);
+
   @override
   _ManagerWidgetState createState() => _ManagerWidgetState();
 }
 
 class _ManagerWidgetState extends State<ManagerWidget> {
-  String name;
-  //TODO image
-
   bool isClicked = false;
 
   void onTapDown(TapDownDetails t) {
@@ -22,7 +25,13 @@ class _ManagerWidgetState extends State<ManagerWidget> {
     setState(() {
       isClicked = false;
 
-      Navigator.pushNamed(context, '/PlayerDetailPage');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PlayerDetailPage(
+              person: widget.manager,
+            )),
+      );
     });
   }
 
@@ -47,7 +56,7 @@ class _ManagerWidgetState extends State<ManagerWidget> {
             size: Constants.widgetSize,
           ),
           Text(
-            'manager name',
+            widget.manager.name,
             style: TextStyle(
               fontSize: 18.0,
               color: isClicked ? Colors.white70 : Colors.white,
