@@ -66,13 +66,13 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     double fieldMarginLR = fieldWidth * Constants.fieldLRRatio;
 
     return Positioned(
-      left: position.dx,
-      top: position.dy,
-      child: Draggable(
-        child: buildPlayer(isClicked ? Colors.white70 : Colors.white),
-        feedback: buildPlayer(isClicked ? Colors.white70 : Colors.white),
-        childWhenDragging: buildPlayer(Colors.transparent),
-        onDraggableCanceled: (v, o) {
+        left: position.dx,
+        top: position.dy,
+        child: Draggable(
+          child: buildPlayer(isClicked ? Colors.white70 : Colors.white),
+          feedback: buildPlayer(isClicked ? Colors.white70 : Colors.white),
+          childWhenDragging: buildPlayer(Colors.transparent),
+          onDraggableCanceled: (v, o) {
             if(!mounted) {
               return;
             }
@@ -106,39 +106,37 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
               PersonDatabase.get().updatePersonInDatabase(widget.player);
             });
-        },
-      ),
-    );
+          },
+        ),
+      );
   }
 
   Widget buildPlayer(Color color) {
     String displayName = widget.player.number == -1? widget.player.name: widget.player.number.toString() + '.' + widget.player.name;
 
     return GestureDetector(
-      onTapDown: onTapDown,
-      onTapUp: onTapUp,
-      onTapCancel: onTapCancel,
-      child: Material(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ImageIcon(
-              AssetImage('images/ic_player.png'),
-              color: color,
-              size: Constants.widgetSize,
+          onTapDown: onTapDown,
+          onTapUp: onTapUp,
+          onTapCancel: onTapCancel,
+          child: Material(
+            child: Column(
+              children: <Widget>[
+                ImageIcon(
+                  AssetImage('images/ic_player.png'),
+                  color: color,
+                  size: Constants.widgetSize,
+                ),
+                Text(
+                  displayName,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: color,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              displayName,
-              style: TextStyle(
-                fontSize: 16.0,
-                color: color,
-              ),
-            ),
-          ],
-        ),
-        color: Colors.transparent,
-      )
-    );
+            color: Colors.transparent,
+          )
+      );
   }
 }

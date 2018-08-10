@@ -66,7 +66,7 @@ class _FieldWidgetState extends State<FieldWidget> {
 
       // FW
       Person fw1 = Person(id: widget.title == 'Main'? 9 : 20, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.75);
-      Person fw2 = Person(id: widget.title == 'Main'? 9 : 20, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.3, 0.0, width), y: tempHeight - pitchHeight * 0.75);
+      Person fw2 = Person(id: widget.title == 'Main'? 10 : 21, role: widget.title.toLowerCase(), number: -1, name: '-', image: null, x: calculateWidth(0.7, Constants.widgetSize, width), y: tempHeight - pitchHeight * 0.75);
       players.add(createPlayer(fw1));
       players.add(createPlayer(fw2));
 
@@ -83,7 +83,10 @@ class _FieldWidgetState extends State<FieldWidget> {
       PersonDatabase.get().updatePersonInDatabase(fw1);
       PersonDatabase.get().updatePersonInDatabase(fw2);
 
-      PersonDatabase.get().updatePersonInDatabase(Person(id: 22, role: Constants.manager, number: -1, name: '-', image: null, x: -1.0, y: -1.0));
+      Person manager = Person(id: 22, role: Constants.manager, number: -1, name: '-', image: null, x: -1.0, y: -1.0);
+      PersonDatabase.get().updatePersonInDatabase(manager);
+
+      PersonDatabase.get().manager = manager;
     } else {
       team.forEach((person){
         players.add(createPlayer(person));
